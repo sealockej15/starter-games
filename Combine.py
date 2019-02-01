@@ -23,10 +23,14 @@ def set_up():
     pygame.draw.line(w,(0,0,0),(0,170),(1050,170))
     pygame.draw.line(w,(0,0,0),(0,140),(1050,140))
     #boxes
+    pygame.draw.rect(w,(0,0,0),glass_box,5)
+    pygame.draw.rect(w,(0,0,0),sand_box,5)
+    pygame.draw.rect(w,(0,0,0),furnace_box,5)
+    pygame.draw.rect(w,(0,0,0),cobble_box,5)
     pygame.draw.rect(w,(0,0,0),coal_box,5)
     pygame.draw.rect(w,(0,0,0),egg_box,5)
     pygame.draw.rect(w,(0,0,0),apple_box,5)
-    pygame.draw.rect(w,(0,0,0),leef_box,5)
+    pygame.draw.rect(w,(0,0,0),leaf_box,5)
     pygame.draw.rect(w,(0,0,0),stick_box,5)
     pygame.draw.rect(w,(0,0,0),crafting_table_box,5)
     pygame.draw.rect(w,(0,0,0),wood_plank_box,5)
@@ -64,14 +68,22 @@ def set_up():
     w.blit(say_crafting_table,(280,10))
     say_stick  = myfont.render("stick", False, (0, 0, 0))
     w.blit(say_stick,(450,10))
-    say_leef  = myfont.render("leef", False, (0, 0, 0))
-    w.blit(say_leef,(555,335))
+    say_leaf  = myfont.render("leaf", False, (0, 0, 0))
+    w.blit(say_leaf,(555,335))
     say_apple  = myfont.render("apple", False, (0, 0, 0))
     w.blit(say_apple,(680,335))
     say_egg  = myfont.render("egg", False, (0, 0, 0))
     w.blit(say_egg,(800,335))
     say_coal  = myfont.render("coal", False, (0, 0, 0))
     w.blit(say_coal,(925,335))
+    say_cobble  = myfont.render("cobble stone", False, (0, 0, 0))
+    w.blit(say_cobble,(555,175))
+    say_furnace  = myfont.render("furnace", False, (0, 0, 0))
+    w.blit(say_furnace,(695,175))
+    say_sand  = myfont.render("sand", False, (0, 0, 0))
+    w.blit(say_sand,(820,175))
+    say_glass  = myfont.render("glass", False, (0, 0, 0))
+    w.blit(say_glass,(945,175))
     #draw blocks
     pygame.draw.line(w,(56, 44, 13),(500,50),(500,130),20)
     pygame.draw.polygon(w,(0,0,0),((490,215),(490,295),(420,295)))
@@ -92,7 +104,7 @@ def set_up():
     pygame.draw.line(w,(56, 42, 5),(290,103.2),(369,103.2),3)
     pygame.draw.line(w,(56, 42, 5),(316.6,50),(316.6,129),3)
     pygame.draw.line(w,(56, 42, 5),(343.2,50),(343.2,129),3)
-    pygame.draw.rect(w,(28, 132, 18),leef_block)
+    pygame.draw.rect(w,(28, 132, 18),leaf_block)
     pygame.draw.rect(w,(193, 165, 133),mushroom_block)
     pygame.draw.rect(w,(104, 83, 59),podzol_dirt)
     pygame.draw.rect(w,(94, 53, 7),podzol_top)
@@ -102,6 +114,13 @@ def set_up():
     pygame.draw.rect(w,(79, 57, 3),coarse_dirt)
     pygame.draw.rect(w,(125,128,132),gravel_block)
     pygame.draw.rect(w,(107, 83, 22),chest_block)
+    pygame.draw.rect(w,(94, 97, 99),cobble_block)
+    pygame.draw.rect(w,(68, 68, 68),furnace_block)
+    pygame.draw.rect(w,(255,255,0),sand_block)
+    pygame.draw.rect(w,(215, 227, 247),glass_block,5)
+    pygame.draw.rect(w,(239, 243, 249),glass_block)
+    pygame.draw.polygon(w,(255, 110, 0),((710,255),(750,255),(750,275),(710,275)))
+    pygame.draw.polygon(w,(0, 0, 0),((710,255),(750,255),(750,275),(710,275)),3)
     pygame.draw.line(w,(0,0,0),(10,80),(89,80),10)
     pygame.draw.polygon(w,(255,255,255),((40,70),(60,70),(60,100),(40,100)))
     pygame.draw.polygon(w,(0,0,0),((40,70),(60,70),(60,100),(40,100)),5)
@@ -111,6 +130,9 @@ w=pygame.display.set_mode([550,500])
 w.fill((255,255,255))
 myfont = pygame.font.SysFont('arial', 25)
 #variables
+glass_amount=0
+furnace_amount=0
+cobble_amount=0
 gravel_amount=0
 mushroom_amount=0
 podzol_amount=0
@@ -123,19 +145,28 @@ chest_amount=0
 wood_plank_amount=0
 crafting_table_amount=0
 stick_amount=0
-leef_amount=0
+leaf_amount=0
 apple_amount=0
 egg_amount=0
 coal_amount=0
+sand_amount=0
 grass_color=(67, 132, 29)
 pygame.display.flip()
 running=True
-#rectse_box=pygame.Rect(675,370,100,100)
+#rects
+glass_block=pygame.Rect(940,215,80,80)
+glass_box=pygame.Rect(930,205,100,100)
+sand_block=pygame.Rect(815,215,80,80)
+sand_box=pygame.Rect(805,205,100,100)
+furnace_block=pygame.Rect(690,215,80,80)
+furnace_box=pygame.Rect(680,205,100,100)
+cobble_block=pygame.Rect(565,215,80,80)
+cobble_box=pygame.Rect(555,205,100,100)
 coal_box=pygame.Rect(925,370,100,100)
 egg_box=pygame.Rect(800,370,100,100)
 apple_box=pygame.Rect(675,370,100,100)
-leef_block=pygame.Rect(560,380,80,80)
-leef_box=pygame.Rect(550,370,100,100)
+leaf_block=pygame.Rect(560,380,80,80)
+leaf_box=pygame.Rect(550,370,100,100)
 stick_box=pygame.Rect(450,40,100,100)
 crafting_table_block=pygame.Rect(290,50,80,80)
 crafting_table_box=pygame.Rect(280,40,100,100)
@@ -190,8 +221,8 @@ while running:
                 if yes_or_no == 1:
                     chest_amount+=1
             if x >= 675 and x <= 775 and y >= 370 and y <= 470:
-                if leef_amount >= 1:
-                    leef_amount-=1
+                if leaf_amount >= 1:
+                    leaf_amount-=1
                     yes_or_no=random.randint(1,8)
                     if yes_or_no == 1:
                         apple_amount+=1
@@ -236,7 +267,7 @@ while running:
                     if seed_amount >= 1 and stick_amount >= 1:
                         seed_amount-=1
                         stick_amount-=1
-                        leef_amount+=1
+                        leaf_amount+=1
                 if x >= 800 and x <= 900 and y >= 370 and y <= 470:
                     if seed_amount >= 30:
                         seed_amount-=30
@@ -246,6 +277,25 @@ while running:
                         gravel_amount-=1
                         flint_amount-=1
                         coal_amount+=1
+                if x >= 555 and x <= 655 and y >= 205 and y <= 305:
+                    if gravel_amount >= 1 and coal_amount >= 1:
+                        coal_amount-=1
+                        gravel_amount-=1
+                        cobble_amount+=2
+                if x >= 680 and x <= 780 and y >= 205 and y <= 305:
+                    if cobble_amount >= 8:
+                        cobble_amount-=8
+                        furnace_amount+=1
+                if x >= 815 and x <= 915 and y >= 205 and y <= 305:
+                    if gravel_amount >= 1 and cobble_amount >= 1:
+                        cobble_amount-=1
+                        gravel_amount-=1
+                        sand_amount+=1
+                if x >= 930 and x <= 1030 and y >= 205 and y <= 305:
+                    if sand_amount >= 3 and coal_amount >= 1 and furnace_amount >= 1:
+                        sand_amount-=3
+                        coal_amount-=1
+                        glass_amount+=3
     #printing out how much
     mushroom="mushrooms: " +str(mushroom_amount)
     seed="seeds: " +str(seed_amount)
@@ -259,10 +309,14 @@ while running:
     wood_plank="wood planks: " +str(wood_plank_amount)
     crafting_table="crafting tables: " +str(crafting_table_amount)
     stick="sticks: " +str(stick_amount)
-    leef="leefs: " +str(leef_amount)
+    leaf="leafs: " +str(leaf_amount)
     apple="apples: " +str(apple_amount)
     egg="eggs: " +str(egg_amount)
     coal="coal: " +str(coal_amount)
+    cobble="cobble: " +str(cobble_amount)
+    furnace="furnaces: " +str(furnace_amount)
+    sand="sand: " +str(sand_amount)
+    glass="glass: " +str(glass_amount)
     w.fill((255,255,255))
     set_up()
     seed_draw = myfont.render(seed, False, (0, 0, 0))
@@ -277,14 +331,22 @@ while running:
     wood_plank_draw = myfont.render(wood_plank, False, (0, 0, 0))
     crafting_table_draw = myfont.render(crafting_table, False, (0, 0, 0))
     stick_draw = myfont.render(stick, False, (0, 0, 0))
-    leef_draw = myfont.render(leef, False, (0, 0, 0))
+    leaf_draw = myfont.render(leaf, False, (0, 0, 0))
     apple_draw = myfont.render(apple, False, (0, 0, 0))
     egg_draw = myfont.render(egg, False, (0, 0, 0))
     coal_draw = myfont.render(coal, False, (0, 0, 0))
+    cobble_draw = myfont.render(cobble, False, (0, 0, 0))
+    furnace_draw = myfont.render(furnace, False, (0, 0, 0))
+    sand_draw = myfont.render(sand, False, (0, 0, 0))
+    glass_draw = myfont.render(glass, False, (0, 0, 0))
+    w.blit(glass_draw,(930,305))
+    w.blit(sand_draw,(805,305))
+    w.blit(furnace_draw,(680,305))
+    w.blit(cobble_draw,(555,305))
     w.blit(coal_draw,(925,475))
     w.blit(egg_draw,(800,475))
     w.blit(apple_draw,(675,475))
-    w.blit(leef_draw,(555,475))
+    w.blit(leaf_draw,(555,475))
     w.blit(stick_draw,(450,145))
     w.blit(crafting_table_draw,(280,145))
     w.blit(wood_plank_draw,(120,145))
