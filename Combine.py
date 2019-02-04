@@ -16,13 +16,18 @@ def set_up():
     pygame.draw.line(w,grass_color,(90,465),(90,384),5)
     pygame.draw.line(w,grass_color,(10,466),(90,466),3)
     # seperaters
-    pygame.draw.line(w,(0,0,0),(550,0),(550,500),5)
+    pygame.draw.line(w,(0,0,0),(550,0),(550,660),5)
     pygame.draw.line(w,(0,0,0),(0,475),(1050,475))
+    pygame.draw.line(w,(0,0,0),(0,630),(1050,630))
+    pygame.draw.line(w,(0,0,0),(0,500),(1050,500))
     pygame.draw.line(w,(0,0,0),(0,335),(1050,335))
     pygame.draw.line(w,(0,0,0),(0,310),(1050,310))
     pygame.draw.line(w,(0,0,0),(0,170),(1050,170))
     pygame.draw.line(w,(0,0,0),(0,140),(1050,140))
     #boxes
+    pygame.draw.rect(w,(0,0,0),bone_box,5)
+    pygame.draw.rect(w,(0,0,0),nugget_box,5)
+    pygame.draw.rect(w,(0,0,0),bottle_box,5)
     pygame.draw.rect(w,(0,0,0),glass_box,5)
     pygame.draw.rect(w,(0,0,0),sand_box,5)
     pygame.draw.rect(w,(0,0,0),furnace_box,5)
@@ -43,6 +48,8 @@ def set_up():
     pygame.draw.rect(w,(0,0,0),coarse_box,5)
     pygame.draw.rect(w,(0,0,0),gravel_box,5)
     pygame.draw.rect(w,(0,0,0),flint_box,5)
+    pygame.draw.rect(w,(0,0,0),iron_box,5)
+    pygame.draw.rect(w,(0,0,0),ingot_box,5)
     #say names
     say_dirt = myfont.render("dirt", False, (0, 0, 0))
     w.blit(say_dirt,(425,335))
@@ -84,6 +91,16 @@ def set_up():
     w.blit(say_sand,(820,175))
     say_glass  = myfont.render("glass", False, (0, 0, 0))
     w.blit(say_glass,(945,175))
+    say_bottle  = myfont.render("bottle", False, (0, 0, 0))
+    w.blit(say_bottle,(555,5))
+    say_iron  = myfont.render("iron ore", False, (0, 0, 0))
+    w.blit(say_iron,(680,5))
+    say_ingot  = myfont.render("iron ingot", False, (0, 0, 0))
+    w.blit(say_ingot,(805,5))
+    say_nugget  = myfont.render("iron nugget", False, (0, 0, 0))
+    w.blit(say_nugget,(930,5))
+    say_bone  = myfont.render("bone", False, (0, 0, 0))
+    w.blit(say_bone,(5,502.5))
     #draw blocks
     pygame.draw.line(w,(56, 44, 13),(500,50),(500,130),20)
     pygame.draw.polygon(w,(0,0,0),((490,215),(490,295),(420,295)))
@@ -119,41 +136,79 @@ def set_up():
     pygame.draw.rect(w,(255,255,0),sand_block)
     pygame.draw.rect(w,(215, 227, 247),glass_block,5)
     pygame.draw.rect(w,(239, 243, 249),glass_block)
+    pygame.draw.rect(w,(105, 109, 105),iron_block)
+    pygame.draw.polygon(w,(211,211,211),((970,75),(990,75),(990,95),(970,95)))
+    pygame.draw.polygon(w,(238, 234, 217),((15,570),(95,570),(95,590),(15,590)))
+    pygame.draw.polygon(w,(211,211,211),((815,65),(895,65),(895,105),(815,105)))
     pygame.draw.polygon(w,(255, 110, 0),((710,255),(750,255),(750,275),(710,275)))
     pygame.draw.polygon(w,(0, 0, 0),((710,255),(750,255),(750,275),(710,275)),3)
     pygame.draw.line(w,(0,0,0),(10,80),(89,80),10)
     pygame.draw.polygon(w,(255,255,255),((40,70),(60,70),(60,100),(40,100)))
     pygame.draw.polygon(w,(0,0,0),((40,70),(60,70),(60,100),(40,100)),5)
     pygame.draw.polygon(w,(0,0,0),((935,460),(1015,460),(975,380)))
+    pygame.draw.polygon(w,(170, 145, 107),((585,45),(625,45),(625,75),(585,75)))
+    pygame.draw.polygon(w,(215, 227, 247),((585,45),(625,45),(625,75),(635,75),(635,125),(575,125),(575,75),(585,75)),5)
+    pygame.draw.polygon(w,(0,0,0),((40,70),(60,70),(60,100),(40,100)),5)
+    #start check
+    if meal_start:
+        say_meal  = myfont.render("bone meal", False, (0, 0, 0))
+        w.blit(say_meal,(130,502.5))
+        pygame.draw.rect(w,(0,0,0),meal_box,5)
+        meal_draw = myfont.render(meal, False, (0, 0, 0))
+        w.blit(meal_draw,(130,632.5))
+        pygame.draw.polygon(w,(222, 227, 234),((160,560),(200,560),(200,600),(160,600)))
 #set up
 w=pygame.display.set_mode([550,500])
 w.fill((255,255,255))
 myfont = pygame.font.SysFont('arial', 25)
 #variables
+    #starts
+meal_start=False
+witch_start=False
+    #metal
+iron_amount=0
+ingot_amount=1
+nugget_amount=0
+    #dirt
+podzol_amount=0
+dirt_amount=0
+coarse_amount=0
+mycelium_amount=0
+    #infinity
+chest_amount=0
+mushroom_amount=0
+seed_amount=0
+    #wood
+wood_plank_amount=4
+crafting_table_amount=0
+stick_amount=1
+    #misc
 glass_amount=0
 furnace_amount=0
 cobble_amount=0
 gravel_amount=0
-mushroom_amount=0
-podzol_amount=0
-seed_amount=0
-dirt_amount=0
-coarse_amount=0
 flint_amount=0
-mycelium_amount=0
-chest_amount=0
-wood_plank_amount=0
-crafting_table_amount=0
-stick_amount=0
 leaf_amount=0
-apple_amount=0
-egg_amount=0
 coal_amount=0
 sand_amount=0
+bone_amount=0
+    #diamond related
+bottle_amount=0
+apple_amount=0
+egg_amount=0
+meal_amount=0
+#colors
 grass_color=(67, 132, 29)
 pygame.display.flip()
 running=True
 #rects
+meal_box=pygame.Rect(130,530,100,100)
+bone_box=pygame.Rect(5,530,100,100)
+nugget_box=pygame.Rect(930,35,100,100)
+ingot_box=pygame.Rect(805,35,100,100)
+iron_block=pygame.Rect(690,45,80,80)
+iron_box=pygame.Rect(680,35,100,100)
+bottle_box=pygame.Rect(555,35,100,100)
 glass_block=pygame.Rect(940,215,80,80)
 glass_box=pygame.Rect(930,205,100,100)
 sand_block=pygame.Rect(815,215,80,80)
@@ -296,6 +351,36 @@ while running:
                         sand_amount-=3
                         coal_amount-=1
                         glass_amount+=3
+                if x >= 555 and x <= 655 and y >= 35 and y <= 135:
+                    if glass_amount >= 3:
+                        glass_amount-=3
+                        bottle_amount+=3
+                if x >= 680 and x <= 780 and y >= 35 and y <= 135:
+                    if flint_amount >= 1 and coal_amount >= 1:
+                        coal_amount-=1
+                        flint_amount-=1
+                        iron_amount+=1
+                if x >= 805 and x <= 905 and y >= 35 and y <= 135:
+                    if iron_amount >= 1 and coal_amount >= 1 and furnace_amount >= 1:
+                        coal_amount-=1
+                        iron_amount-=1
+                        ingot_amount+=1
+                if x >= 930 and x <= 1030 and y >= 35 and y <= 135:
+                    if ingot_amount >= 1:
+                        ingot_amount-=1
+                        nugget_amount+=9
+                        w=pygame.display.set_mode([1050,660])
+                if x >= 5 and x <= 105 and y >= 530 and y <= 630:
+                    if nugget_amount >= 1 and stick_amount >= 1:
+                        nugget_amount-=1
+                        stick_amount-=1
+                        bone_amount+=1
+                        meal_start=True
+                if x >= 130 and x <= 230 and y >= 530 and y <= 630:
+                    if bone_amount >= 1 and meal_start:
+                        bone_amount-=1
+                        meal_amount+=3
+                        witch_start=True
     #printing out how much
     mushroom="mushrooms: " +str(mushroom_amount)
     seed="seeds: " +str(seed_amount)
@@ -317,6 +402,12 @@ while running:
     furnace="furnaces: " +str(furnace_amount)
     sand="sand: " +str(sand_amount)
     glass="glass: " +str(glass_amount)
+    bottle="bottles: " +str(bottle_amount)
+    iron="irons: " +str(iron_amount)
+    ingot="ingots: " +str(ingot_amount)
+    nugget="nuggets: " +str(nugget_amount)
+    bone="bones: " +str(bone_amount)
+    meal="meals: " +str(meal_amount)
     w.fill((255,255,255))
     set_up()
     seed_draw = myfont.render(seed, False, (0, 0, 0))
@@ -339,6 +430,16 @@ while running:
     furnace_draw = myfont.render(furnace, False, (0, 0, 0))
     sand_draw = myfont.render(sand, False, (0, 0, 0))
     glass_draw = myfont.render(glass, False, (0, 0, 0))
+    bottle_draw = myfont.render(bottle, False, (0, 0, 0))
+    iron_draw = myfont.render(iron, False, (0, 0, 0))
+    ingot_draw = myfont.render(ingot, False, (0, 0, 0))
+    nugget_draw = myfont.render(nugget, False, (0, 0, 0))
+    bone_draw = myfont.render(bone, False, (0, 0, 0))
+    w.blit(bone_draw,(5,632.5))
+    w.blit(nugget_draw,(930,135))
+    w.blit(ingot_draw,(805,135))
+    w.blit(iron_draw,(680,135))
+    w.blit(bottle_draw,(555,135))
     w.blit(glass_draw,(930,305))
     w.blit(sand_draw,(805,305))
     w.blit(furnace_draw,(680,305))
