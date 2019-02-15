@@ -17,13 +17,13 @@ def set_up():
     pygame.draw.line(w,grass_color,(10,466),(90,466),3)
     # seperaters
     pygame.draw.line(w,(0,0,0),(550,0),(550,660),5)
-    pygame.draw.line(w,(0,0,0),(0,475),(1050,475))
+    pygame.draw.line(w,(0,0,0),(0,475),(1160,475))
     pygame.draw.line(w,(0,0,0),(0,630),(1050,630))
-    pygame.draw.line(w,(0,0,0),(0,500),(1050,500))
-    pygame.draw.line(w,(0,0,0),(0,335),(1050,335))
-    pygame.draw.line(w,(0,0,0),(0,310),(1050,310))
-    pygame.draw.line(w,(0,0,0),(0,170),(1050,170))
-    pygame.draw.line(w,(0,0,0),(0,140),(1050,140))
+    pygame.draw.line(w,(0,0,0),(0,500),(1160,500))
+    pygame.draw.line(w,(0,0,0),(0,335),(1160,335))
+    pygame.draw.line(w,(0,0,0),(0,310),(1160,310))
+    pygame.draw.line(w,(0,0,0),(0,170),(1160,170))
+    pygame.draw.line(w,(0,0,0),(0,140),(1160,140))
     #boxes
     pygame.draw.rect(w,(0,0,0),bone_box,5)
     pygame.draw.rect(w,(0,0,0),nugget_box,5)
@@ -50,6 +50,9 @@ def set_up():
     pygame.draw.rect(w,(0,0,0),flint_box,5)
     pygame.draw.rect(w,(0,0,0),iron_box,5)
     pygame.draw.rect(w,(0,0,0),ingot_box,5)
+    pygame.draw.rect(w,(0,0,0),sugar_box,5)
+    pygame.draw.rect(w,(0,0,0),redstone_box,5)
+    pygame.draw.rect(w,(0,0,0),glowstone_box,5)
     #say names
     say_dirt = myfont.render("dirt", False, (0, 0, 0))
     w.blit(say_dirt,(425,335))
@@ -101,6 +104,12 @@ def set_up():
     w.blit(say_nugget,(930,5))
     say_bone  = myfont.render("bone", False, (0, 0, 0))
     w.blit(say_bone,(5,502.5))
+    say_sugar = myfont.render("sugar", False, (0, 0, 0))
+    w.blit(say_sugar,(1060,5))
+    say_glowstone = myfont.render("glow stone", False, (0, 0, 0))
+    w.blit(say_glowstone,(1060,345))
+    say_redstone = myfont.render("red stone", False, (0, 0, 0))
+    w.blit(say_redstone,(1060,180))
     #draw blocks
     pygame.draw.line(w,(56, 44, 13),(500,50),(500,130),20)
     pygame.draw.polygon(w,(0,0,0),((490,215),(490,295),(420,295)))
@@ -149,6 +158,11 @@ def set_up():
     pygame.draw.polygon(w,(170, 145, 107),((585,45),(625,45),(625,75),(585,75)))
     pygame.draw.polygon(w,(215, 227, 247),((585,45),(625,45),(625,75),(635,75),(635,125),(575,125),(575,75),(585,75)),5)
     pygame.draw.polygon(w,(0,0,0),((40,70),(60,70),(60,100),(40,100)),5)
+    pygame.draw.polygon(w,(255,255,0),((1070,460),(1110,380),(1150,460)))
+    pygame.draw.polygon(w,(0,0,0),((1070,460),(1110,380),(1150,460)),5)
+    pygame.draw.polygon(w,(0,0,0),((1070,295),(1110,215),(1150,295)),5)
+    pygame.draw.polygon(w,(255,0,0),((1070,295),(1110,215),(1150,295)))
+    pygame.draw.polygon(w,(0,0,0),((1070,120),(1110,40),(1150,120)),5)
     #start check
     if meal_start:
         say_meal  = myfont.render("bone meal", False, (0, 0, 0))
@@ -157,14 +171,24 @@ def set_up():
         meal_draw = myfont.render(meal, False, (0, 0, 0))
         w.blit(meal_draw,(130,632.5))
         pygame.draw.polygon(w,(222, 227, 234),((160,560),(200,560),(200,600),(160,600)))
+    if witch_start:
+        pygame.draw.rect(w,(0,0,0),witch_box,5)
+        say_question  = myfont.render("?????????", False, (0, 0, 0))
+        w.blit(say_question,(255,502.5))
+        question_draw = myfont.render(question, False, (0, 0, 0))
+        w.blit(question_draw,(255,632.5))
+        pygame.draw.circle(w,(0,0,0),(305,580),40,5)
+        pygame.draw.polygon(w,(0,0,0),((290,572.5),(290,552.5),(320,552.5),(320,587.5),(320,552.5),(290,552.5)),5)
+        pygame.draw.polygon(w,(0,0,0),((320,597.5),(322.5,597.5),(322.5,600),(320,600)),5)
 #set up
 w=pygame.display.set_mode([550,500])
 w.fill((255,255,255))
 myfont = pygame.font.SysFont('arial', 25)
 #variables
     #starts
+mystery_drops=False
 meal_start=False
-witch_start=False
+witch_start=True
     #metal
 iron_amount=0
 ingot_amount=1
@@ -181,7 +205,7 @@ seed_amount=0
     #wood
 wood_plank_amount=4
 crafting_table_amount=0
-stick_amount=1
+stick_amount=0
     #misc
 glass_amount=0
 furnace_amount=0
@@ -193,15 +217,28 @@ coal_amount=0
 sand_amount=0
 bone_amount=0
     #diamond related
-bottle_amount=0
+bottle_amount=1
 apple_amount=0
-egg_amount=0
+egg_amount=1
 meal_amount=0
+witch_amount=0
+drops_amount=0
+redstone_amount=0
+glowstone_amount=0
+sugar_amount=0
+rotten_flesh_amount=0
+lapis_amount=0
+dye_amount=0
+diamond_amount=0
 #colors
 grass_color=(67, 132, 29)
 pygame.display.flip()
 running=True
 #rects
+sugar_box=pygame.Rect(1060,370,100,100)
+glowstone_box=pygame.Rect(1060,205,100,100)
+redstone_box=pygame.Rect(1060,30,100,100)
+witch_box=pygame.Rect(255,530,100,100)
 meal_box=pygame.Rect(130,530,100,100)
 bone_box=pygame.Rect(5,530,100,100)
 nugget_box=pygame.Rect(930,35,100,100)
@@ -281,6 +318,27 @@ while running:
                     yes_or_no=random.randint(1,8)
                     if yes_or_no == 1:
                         apple_amount+=1
+            if x >= 255 and x <= 355 and y >= 530 and y <= 630:
+                if witch_amount >= 1:
+                    a=1
+                    drops=["redstone","glowstone","sugar","stick","bottle"]
+                    while a <= 2:
+                        drop_rand=random.randint(0,len(drops)-1)
+                        drop=drops[drop_rand]
+                        drops.remove(drop)
+                        if drop == "redstone":
+                            redstone_amount+=random.randint(0,6)
+                        elif drop == "glowstone":
+                            glowstone_amount+=random.randint(0,6)
+                        elif drop == "stick":
+                            stick_amount+=random.randint(0,6)
+                        elif drop == "sugar":
+                            sugar_amount+=random.randint(0,6)
+                        elif drop == "bottle":
+                            bottle_amount+=random.randint(0,6)
+                        a+=1
+                    witch_amount-=1
+                    rotten_flesh=True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 x,y=pygame.mouse.get_pos()
@@ -369,7 +427,7 @@ while running:
                     if ingot_amount >= 1:
                         ingot_amount-=1
                         nugget_amount+=9
-                        w=pygame.display.set_mode([1050,660])
+                        w=pygame.display.set_mode([1160,660])
                 if x >= 5 and x <= 105 and y >= 530 and y <= 630:
                     if nugget_amount >= 1 and stick_amount >= 1:
                         nugget_amount-=1
@@ -381,6 +439,12 @@ while running:
                         bone_amount-=1
                         meal_amount+=3
                         witch_start=True
+                if x >= 255 and x <= 355 and y >= 530 and y <= 630:
+                    if bottle_amount >= 1 and witch_start and egg_amount >= 1:
+                        egg_amount-=1
+                        bottle_amount-=1
+                        witch_amount+=1
+                        mystery_drops=True
     #printing out how much
     mushroom="mushrooms: " +str(mushroom_amount)
     seed="seeds: " +str(seed_amount)
@@ -408,6 +472,10 @@ while running:
     nugget="nuggets: " +str(nugget_amount)
     bone="bones: " +str(bone_amount)
     meal="meals: " +str(meal_amount)
+    question="???s: " +str(witch_amount)
+    redstone="redstone: " +str(redstone_amount)
+    glowstone="glowstone: " +str(glowstone_amount)
+    sugar="sugar: " +str(sugar_amount)
     w.fill((255,255,255))
     set_up()
     seed_draw = myfont.render(seed, False, (0, 0, 0))
@@ -435,6 +503,12 @@ while running:
     ingot_draw = myfont.render(ingot, False, (0, 0, 0))
     nugget_draw = myfont.render(nugget, False, (0, 0, 0))
     bone_draw = myfont.render(bone, False, (0, 0, 0))
+    glowstone_draw = myfont.render(glowstone, False, (0, 0, 0))
+    redstone_draw = myfont.render(redstone, False, (0, 0, 0))
+    sugar_draw = myfont.render(sugar, False, (0, 0, 0))
+    w.blit(sugar_draw,(1060,140))
+    w.blit(redstone_draw,(1025,310))
+    w.blit(glowstone_draw,(1025,470))
     w.blit(bone_draw,(5,632.5))
     w.blit(nugget_draw,(930,135))
     w.blit(ingot_draw,(805,135))
