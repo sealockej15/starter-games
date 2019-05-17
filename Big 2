@@ -1,0 +1,202 @@
+import random, pygame, tsk
+pygame.init()
+w=pygame.display.set_mode([1018,573])
+background=tsk.Sprite("TableTop.jpg",0,0)
+background.draw()
+pygame.display.flip()
+game=True
+cards=[]
+p1=[]
+p2=[]
+p3=[]
+p4=[]
+players=[p1,p2,p3,p4]
+score1=0
+score2=0
+score3=0
+score4=0
+name1=input("P1 enter your name. ")
+name2=input("P2 enter your name. ")
+name3=input("P3 enter your name. ")
+name4=input("P4 enter your name. ")
+card1=tsk.Sprite("CardFront.png",400,60)
+card2=tsk.Sprite("CardFront.png",0,0)
+card3=tsk.Sprite("CardFront.png",0,0)
+card4=tsk.Sprite("CardFront.png",0,0)
+card5=tsk.Sprite("CardFront.png",0,0)
+card6=tsk.Sprite("CardFront.png",0,0)
+card7=tsk.Sprite("CardFront.png",0,0)
+card8=tsk.Sprite("CardFront.png",0,0)
+card9=tsk.Sprite("CardFront.png",0,0)
+back1=tsk.Sprite("CardBackNature.png",385,60)
+back2=tsk.Sprite("CardBackNature.png",385,60)
+back3=tsk.Sprite("CardBackNature.png",385,60)
+back4=tsk.Sprite("CardBackNature.png",385,60)
+back5=tsk.Sprite("CardBackNature.png",385,60)
+back6=tsk.Sprite("CardBackNature.png",385,60)
+backs=[back1, back2, back3, back4, back5, back6]
+cards=[card1, card2, card3, card4, card5, card6, card7, card8, card9]
+back=0
+deal=0
+winner="p1"
+seter=True
+direction=""
+move=0
+while game:
+    while len(cards) < 52:
+        num=len(cards)+1
+        cards.append(str(num))
+    num=0
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game=False
+    print(str(name1) + " has " +str(score1) +" points.")
+    print(str(name2) + " has " +str(score2) +" points.")
+    print(str(name3) + " has " +str(score3) +" points.")
+    print(str(name4) + " has " +str(score4) +" points.")
+    cardnum=1
+    while len(cards) > 0:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                while len(cards) > 1:
+                    plus=random.randint(0,len(cards)-1)
+                    players[num].append(cards[plus])
+                    cards.remove(cards[plus])
+                    if num < 3:
+                        num+=1
+                    elif num == 3:
+                        num=0
+        back=0
+        plus=random.randint(0,len(cards)-1)
+        players[num].append(cards[plus])
+        cards.remove(cards[plus])
+        if num < 3:
+            num+=1
+        elif num == 3:
+            num=0
+            if len(cards) == 0:
+                print(cardnum)
+                cardnum=0
+        if num == 1 and len(cards) != 51:
+            print(cardnum)
+            cardnum+=1
+        while back < 6:
+            backs[back].scale=0.5
+            backs[back].angle=270
+            backs[back].draw()
+            back+=1
+            if seter:
+                if winner == "p1":
+                    direction="right"
+                elif winner == "p2":
+                    direction="bottom"
+                elif winner == "p3":
+                    direction="left"
+                elif winner == "p4":
+                    direction="top"
+                seter=False
+                done=0
+        if direction == "top":
+            move=0
+            while move < 200:
+                backs[deal].y-=50
+                move+=50
+                backs[deal].draw()
+                pygame.display.flip()
+                background.draw()
+                back=0
+                while back < 6:
+                    if back == deal:
+                        back+=1
+                    backs[back].scale=0.5
+                    backs[back].angle=270
+                    backs[back].draw()
+                    back+=1
+            deal+=1
+            if deal == 5:
+                deal=4
+                backs[deal].y+=200
+            direction="right"
+        elif direction == "right":
+            move=0
+            while move < 400:
+                backs[deal].x+=52
+                move+=50
+                backs[deal].draw()
+                pygame.display.flip()
+                background.draw()
+                back=0
+                while back < 6:
+                    if back == deal:
+                        back+=1
+                    backs[back].scale=0.5
+                    backs[back].angle=270
+                    backs[back].draw()
+                    back+=1
+            deal+=1
+            if deal == 5:
+                deal=4
+                backs[deal].x-=416
+            direction="bottom"
+        elif direction == "bottom":
+            move=0
+            while move < 200:
+                backs[deal].y+=61
+                move+=50
+                backs[deal].draw()
+                pygame.display.flip()
+                background.draw()
+                back=0
+                while back < 6:
+                    if back == deal:
+                        back+=1
+                    backs[back].scale=0.5
+                    backs[back].angle=270
+                    backs[back].draw()
+                    back+=1
+            deal+=1
+            if deal == 5:
+                deal=4
+                backs[deal].y-=61*4
+            direction="left"
+        elif direction == "left":
+            move=0
+            while move < 400:
+                backs[deal].x-=52
+                move+=50
+                backs[deal].draw()
+                pygame.display.flip()
+                background.draw()
+                back=0
+                while back < 6:
+                    if back == deal:
+                        back+=1
+                    backs[back].scale=0.5
+                    backs[back].angle=270
+                    backs[back].draw()
+                    back+=1
+            deal+=1
+            if deal == 5:
+                deal=4
+                backs[deal].x+=52*8
+            direction="top"
+        pygame.display.flip()
+    num=0
+    deal=0
+    seter=True
+    background.draw()
+    back=0
+    back1.x=420
+    back1.y=192.5
+    back2.x=420
+    back2.y=192.5
+    back3.x=420
+    back3.y=192.5
+    back4.x=420
+    back4.y=192.5
+    while back < 6:
+        backs[back].scale=0.5
+        backs[back].angle=270
+        backs[back].draw()
+        back+=1
+    pygame.display.flip()
