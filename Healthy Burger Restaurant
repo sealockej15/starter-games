@@ -1,0 +1,88 @@
+
+budget=450
+health=0
+full=0
+game = True
+while game:
+  print("You go to the best resturant ever with 450 dollars.")
+  print("You only get 1 chance to order per item.")
+  print("You want at least 30 full and 30 health.")
+  print("If you go over the budget you lose.")
+  print("-----------------------------------The Best Resturant Ever's Menu!----------------------------------------")
+  print("Price            Food         Full            Health")
+  print("$100             Steak         10                2")
+  print("$50              Salad          3                5")
+  print("$30              Fries          3                1")
+  print("$100             Spinach        1               10")
+  steak=input("Would you like steak y/n? ")
+  if steak == "y":
+      amountst=int(input("How many? "))
+      budget-=100*amountst
+      full+=10*amountst
+      health+=2*amountst
+      if budget<=0:
+          print("You lose. :(")
+          break
+      if full >= 30:
+          print("You have enough full! :)")
+      if health >= 30:
+          print("You have enough health! :)")
+      print("Your full is " +str(full) +" and your health is " +str(health) +" and your money is " +str(budget) +".")
+  if full >= 30 and health >= 30:
+      print("You win!")
+      break
+  salad=input("Would you like salad y/n? ")
+  if salad == "y":
+      amountsa=int(input("How many? "))
+      budget-=50*amountsa
+      full+=3*amountsa
+      health+=5*amountsa
+      if budget<=0:
+          print("You lose. :(")
+          break
+      if full >= 30:
+          print("You have enough full! :)")
+      if health >= 30:
+          print("You have enough health! :)")
+      print("Your full is " +str(full) +" and your health is " +str(health) +" and your money is " +str(budget) +".")
+  if full >= 30 and health >= 30:
+      print("You win!")
+      break
+  fries=input("Would you like fries y/n? ")
+  if fries == "y":
+      amountf=int(input("How many? "))
+      budget-=30*amountf
+      full+=3*amountf
+      health+=1*amountf
+      if budget<=0:
+          print("You lose. :(")
+          break
+      if full >= 30:
+          print("You have enough full! :)")
+      if health >= 30:
+          print("You have enough health! :)")
+      print("Your full is " +str(full) +" and your health is " +str(health) +" and your money is " +str(budget) +".")
+  if full >= 30 and health >= 30:
+      print("You win!")
+
+  spinach=input("Would you like spinach y/n? ")
+  if spinach == "y":
+      amountsp=int(input("How many? "))
+      budget-=100*amountsp
+      full+=1*amountsp
+      health+=10*amountsp
+      if budget<=0:
+          print("You lose. :(")
+          break
+      if full >= 30:
+          print("You have enough full! :)")
+      if health >= 30:
+          print("You have enough health! :)")
+      print("Your full is " +str(full) +" and your health is " +str(health) +" and your money is " +str(budget) +".")
+  if full >= 30 and health >= 30:
+      print("You win!")
+      break
+  game = False
+
+
+
