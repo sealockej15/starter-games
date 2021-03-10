@@ -20,7 +20,7 @@ while game:
       budget-=100*amountst
       full+=10*amountst
       health+=2*amountst
-      if budget<=0:
+      if budget<0:
           print("You lose. :(")
           break
       if full >= 30:
@@ -54,7 +54,7 @@ while game:
       budget-=30*amountf
       full+=3*amountf
       health+=1*amountf
-      if budget<=0:
+      if budget<0:
           print("You lose. :(")
           break
       if full >= 30:
@@ -71,7 +71,7 @@ while game:
       budget-=100*amountsp
       full+=1*amountsp
       health+=10*amountsp
-      if budget<=0:
+      if budget<0:
           print("You lose. :(")
           break
       if full >= 30:
