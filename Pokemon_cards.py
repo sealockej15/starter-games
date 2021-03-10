@@ -1,5 +1,5 @@
 """
-Pokemon_cards_2
+Pokemon_cards
 
 Description:
 """
